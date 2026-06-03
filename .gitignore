@@ -1,0 +1,10 @@
+# Dependencies — re-downloadable any time via `npm install` from package.json.
+# Huge (~150 MB) and reproducible, so we NEVER commit them.
+node_modules/
+
+# Build output — the packaged .app produced by electron-builder.
+# Also regenerated on demand, so it stays out of the repo.
+dist/
+
+# macOS clutter — Finder drops these hidden files everywhere; not part of the app.
+.DS_Store

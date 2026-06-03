@@ -1,0 +1,35 @@
+html, body {
+  margin: 0; height: 100vh; background: transparent; overflow: hidden;
+  user-select: none; font-family: -apple-system, system-ui, sans-serif;
+}
+.clippy { cursor: grab; }
+.clippy:active { cursor: grabbing; }
+
+#panel {
+  position: absolute; left: 10px; right: 10px; top: 112px;
+  background: rgba(28,28,30,0.94); color: #f2f2f7;
+  border-radius: 14px; padding: 12px 14px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  font-size: 12px; line-height: 1.45;
+}
+#panel.hidden { display: none; }
+#panel .hd  { font-weight: 600; font-size: 13px; display: flex;
+              justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+#panel .cyc { font-weight: 400; color: #8e8e93; font-size: 10px; }
+#panel .big { font-size: 20px; font-weight: 600; }
+#panel .muted { color: #8e8e93; font-weight: 400; }
+#panel .pct { font-size: 12px; margin-left: 4px; }
+#panel .bar { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.12);
+              margin: 7px 0 5px; overflow: hidden; }
+#panel .fill { height: 100%; border-radius: 3px; }
+#panel .proj { font-size: 11px; margin-bottom: 9px; }
+#panel .toks { display: flex; gap: 12px; align-items: baseline;
+               padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.09); }
+#panel .toks .tlab { text-transform: uppercase; letter-spacing: 0.04em;
+                     font-size: 10px; color: #aeaeb2; }
+#panel .toks span { color: #aeaeb2; font-size: 11px; }
+#panel .toks b { color: #fff; margin-left: 3px; font-size: 12px; }
+#panel .ft { margin-top: 9px; font-size: 10px; color: #8e8e93; }
+#panel .warn-row { margin-top: 8px; color: #ffd60a; font-size: 11px; }
+#panel .ok { color: #30d158; } #panel .warn { color: #ffd60a; } #panel .over { color: #ff453a; }
+#panel .fill.ok { background: #30d158; } #panel .fill.warn { background: #ffd60a; } #panel .fill.over { background: #ff453a; }
