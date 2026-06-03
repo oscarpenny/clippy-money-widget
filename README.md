@@ -6,8 +6,6 @@
 
 Click Clippy and he pops a panel showing my Claude spend against my **$100/month cap** — in both dollars and tokens — and reacts with a fitting animation (cheerful when I'm under budget, concerned when I'm projected to blow past it).
 
-This is my **first desktop app**. I built it to learn how Electron, git/GitHub, and the JavaScript toolchain fit together, on top of a real data feed from my own [life-os-bot](https://github.com/oscarpenny/life-os-bot) assistant.
-
 ---
 
 ## What it does
@@ -19,13 +17,13 @@ This is my **first desktop app**. I built it to learn how Electron, git/GitHub, 
 
 ## How it works
 
-The hard part of most apps — *getting the data* — was already solved by my server. The widget just reads local files:
+The data pipeline is fully local — the widget only reads files that are already on the Mac:
 
 ```
 life-os-bot (server)
       │  commits cost data (tripwire_state.json + claude_usage.jsonl)
       ▼
-launchd  ──►  git pull every 5 min  ──►  ~/substrate-clippy/.../cost/   [read-only mirror on my Mac]
+launchd  ──►  git pull every 5 min  ──►  ~/substrate-clippy/.../cost/   [read-only mirror on the Mac]
                                                    │  fs.readFileSync
                                                    ▼
                          Electron MAIN process ──IPC──► PRELOAD (safe bridge)
@@ -34,13 +32,13 @@ launchd  ──►  git pull every 5 min  ──►  ~/substrate-clippy/.../cost
                                           RENDERER + clippy.js  (draws Clippy, handles clicks)
 ```
 
-The interesting engineering is Electron's **two-world security model**, which I leaned into deliberately:
+Electron's **two-process model** keeps it secure:
 
-- The **main process** has Node.js powers and is the *only* place that touches the filesystem.
-- The **renderer** (the window that loads jQuery + clippy.js) is sandboxed — it has **no filesystem access at all**.
-- A tiny **preload** script bridges them, exposing exactly one safe function (`getSpend()`) over IPC.
+- The **main process** has Node.js access and is the only part that reads the filesystem.
+- The **renderer** (the window running jQuery + clippy.js) is sandboxed, with no filesystem access.
+- A **preload** script bridges the two, exposing a single function (`getSpend()`) over IPC.
 
-So even though the UI loads third-party libraries, none of them can read my disk. The widget holds **no credentials and makes no network calls at runtime** — least privilege by design.
+The UI loads third-party libraries, but none can reach the disk. The widget stores **no credentials and makes no network calls at runtime**.
 
 ## Tech stack
 
