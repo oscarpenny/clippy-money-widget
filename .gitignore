@@ -8,3 +8,8 @@ dist/
 
 # macOS clutter — Finder drops these hidden files everywhere; not part of the app.
 .DS_Store
+
+# Nested checkout of the separate `life-os-bot` repo (its own .git lives inside).
+# It just happens to sit here on disk — it is NOT part of this app and must never
+# be committed/pushed with clippy-widget.
+substrate-clippy/

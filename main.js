@@ -1,9 +1,10 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const fs = require('fs')
-const os = require('os')
 const path = require('path')
 
-const COST_DIR = path.join(os.homedir(), 'substrate-clippy/ai-workflow/data/cost')
+// substrate-clippy lives inside this app folder (a nested checkout of life-os-bot),
+// so anchor to __dirname rather than the home dir — survives the app being moved.
+const COST_DIR = path.join(__dirname, 'substrate-clippy/ai-workflow/data/cost')
 const CAP = 100
 
 function readSpend () {

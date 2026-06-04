@@ -1,5 +1,11 @@
 clippy.BASE_PATH = 'assets/agents/'
 
+// Keep Clippy silent: intercept the sounds payload and hand the library an empty
+// map. preloadSounds() then creates zero <audio> elements, and _playSound() has
+// nothing to play — so every animation still runs, but no sound is ever emitted.
+var _clippySoundsReady = clippy.soundsReady
+clippy.soundsReady = function (name) { return _clippySoundsReady.call(clippy, name, {}) }
+
 function fmtTok (n) {
   n = n || 0
   if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M'
